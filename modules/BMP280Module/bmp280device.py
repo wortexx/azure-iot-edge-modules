@@ -49,7 +49,7 @@ class BMP280Device:
 
     @staticmethod
     def __calculate_temp_coeff(b1):
-        coeff_t = [] * 3
+        coeff_t = [0 for x in range(0)]
         coeff_t[0] = b1[1] * 256 + b1[0]
         coeff_t[1] = BMP280Device.__norm_int16(b1[3] * 256 + b1[2])
         coeff_t[2] = BMP280Device.__norm_int16(b1[5] * 256 + b1[4])
@@ -57,7 +57,7 @@ class BMP280Device:
     
     @staticmethod
     def __calculate_pressure_coeff(b1):
-        coeff_p = [] * 9
+        coeff_p = [0 for x in range(9)]
         coeff_p[0] =  b1[7] * 256 + b1[6]
         coeff_p[1] = BMP280Device.__norm_int16(b1[9] * 256 + b1[8])
         coeff_p[2] = BMP280Device.__norm_int16(b1[11] * 256 + b1[10])

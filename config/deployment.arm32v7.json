@@ -42,7 +42,7 @@
             "status": "running",
             "restartPolicy": "always",
             "settings": {
-              "image": "edgec.azurecr.io/bmp280module:0.0.5-arm64v8",
+              "image": "edgec.azurecr.io/bmp280module:0.0.6-arm32v7",
               "createOptions": "{\"HostConfig\":{\"Binds\":[\"/dev/i2c-1:/dev/i2c-0\",\"/dev/i2c-1:/dev/i2c-1\",\"/dev/i2c-1:/dev/i2c-2\"]}}"
             }
           }
