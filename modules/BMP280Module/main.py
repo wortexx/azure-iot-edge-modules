@@ -31,19 +31,21 @@ async def main():
         await module_client.connect()
 
         async def send_measurments_message():
-            try:
-                device = BMP280Device(I2C_BUS_NUMBER)
-                (temperature, pressure) = await device.read()
-                msg_txt_formatted = MSG_TXT.format(temperature = temperature, pressure = pressure)
-                print ("bmp280 says " + msg_txt_formatted)
-                message = Message(msg_txt_formatted)
-                message.message_id = uuid.uuid4()
-                message.custom_properties["temperature"] = temperature
-                message.custom_properties["pressure"] =  pressure
-                await module_client.send_message_to_output(message, "output1")
-            except Exception as ex:
-                traceback.print_last()
-                print ("Unexpected error %s " % repr(ex) )
+            while True:
+                try:
+                    device = BMP280Device(I2C_BUS_NUMBER)
+                    (temperature, pressure) = await device.read()
+                    msg_txt_formatted = MSG_TXT.format(temperature = temperature, pressure = pressure)
+                    print ("bmp280 says " + msg_txt_formatted)
+                    message = Message(msg_txt_formatted)
+                    message.message_id = uuid.uuid4()
+                    message.custom_properties["temperature"] = temperature
+                    message.custom_properties["pressure"] =  pressure
+                    await module_client.send_message_to_output(message, "output1")
+                    await asyncio.sleep(10)
+                except Exception as ex:
+                    traceback.print_last()
+                    print ("Unexpected error %s " % repr(ex) )
  
         await asyncio.gather(*[send_measurments_message() for i in range(1, 10)])
 
