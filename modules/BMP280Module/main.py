@@ -4,7 +4,7 @@
 
 import time
 import os
-import sys
+import sys, traceback
 import asyncio
 from six.moves import input
 import threading
@@ -42,6 +42,7 @@ async def main():
                 message.custom_properties["pressure"] =  pressure
                 await module_client.send_message_to_output(message, "output1")
             except Exception as ex:
+                traceback.print_last()
                 print ("Unexpected error %s " % repr(ex) )
  
         await asyncio.gather(*[send_measurments_message() for i in range(1, 10)])

@@ -14,7 +14,7 @@ class BMP280Device:
         b1 = i2cBus.read_i2c_block_data(self.bmp280_address, 0x88, 24)
         # Convert the data
         # temp coefficents
-        dig_T = BMP280Device.__calculate_temp_coeff(b1)
+        coeff_t = BMP280Device.__calculate_temp_coeff(b1)
         coeff_p = BMP280Device.__calculate_pressure_coeff(b1)
 
         await self.__select_control_measurment_register(i2cBus)
@@ -25,7 +25,7 @@ class BMP280Device:
         adc_t = self.__convert_temperature_to_19_bit(data)
 
         # Temperature offset calculations
-        t_fine = BMP280Device.__calculate_temperature(dig_T, adc_t)
+        t_fine = BMP280Device.__calculate_temperature(coeff_t, adc_t)
         cTemp = t_fine / 5120.0
         #fTemp = cTemp * 1.8 + 32
         pressure = BMP280Device.__calculate_pressure(coeff_p, adc_p, t_fine)
@@ -49,12 +49,12 @@ class BMP280Device:
 
     @staticmethod
     def __calculate_temp_coeff(b1):
-        coeff_t = [0 for x in range(0)]
+        coeff_t = [0 for x in range(3)]
         coeff_t[0] = b1[1] * 256 + b1[0]
         coeff_t[1] = BMP280Device.__norm_int16(b1[3] * 256 + b1[2])
         coeff_t[2] = BMP280Device.__norm_int16(b1[5] * 256 + b1[4])
         return coeff_t
-    
+        
     @staticmethod
     def __calculate_pressure_coeff(b1):
         coeff_p = [0 for x in range(9)]
