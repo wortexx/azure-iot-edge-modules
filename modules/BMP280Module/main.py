@@ -10,7 +10,7 @@ from bmp280device import BMP280Device
 import uuid
 
 # default I2C bus number, should be set through desired properties
-I2C_BUS_NUMBER = 0
+I2C_BUS_NUMBER = 1
 MSG_TXT = '{{"temperature": {temperature},"pressure": {pressure}}}'
 
 async def main():
