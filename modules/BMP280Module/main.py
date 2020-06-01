@@ -1,7 +1,3 @@
-# Copyright (c) Microsoft. All rights reserved.
-# Licensed under the MIT license. See LICENSE file in the project root for
-# full license information.
-
 import time
 import os
 import sys, traceback
@@ -14,7 +10,7 @@ from bmp280device import BMP280Device
 import uuid
 
 # default I2C bus number, should be set through desired properties
-I2C_BUS_NUMBER = 1
+I2C_BUS_NUMBER = 0
 MSG_TXT = '{{"temperature": {temperature},"pressure": {pressure}}}'
 
 async def main():
