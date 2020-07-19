@@ -79,6 +79,29 @@
                 }
               }
             }
+          },
+          "DisplayModule": {
+            "version": "1.0",
+            "type": "docker",
+            "status": "running",
+            "restartPolicy": "always",
+            "settings": {
+              "image": "${MODULES.DisplayModule.debug}",
+              "createOptions": {
+                "ExposedPorts": {
+                  "5678/tcp": {}
+                },
+                "HostConfig": {
+                  "PortBindings": {
+                    "5678/tcp": [
+                      {
+                        "HostPort": "5678"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -87,7 +110,8 @@
       "properties.desired": {
         "schemaVersion": "1.0",
         "routes": {
-          "BMP280ModuleToIoTHub": "FROM /messages/modules/BMP280Module/outputs/* INTO $upstream"
+          "BMP280ModuleToIoTHub": "FROM /messages/modules/BMP280Module/outputs/* INTO $upstream",
+          "DisplayModuleToIoTHub": "FROM /messages/modules/DisplayModule/outputs/* INTO $upstream"
         },
         "storeAndForwardConfiguration": {
           "timeToLiveSecs": 7200

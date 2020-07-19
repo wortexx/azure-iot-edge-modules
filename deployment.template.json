@@ -68,14 +68,13 @@
                 "HostConfig": {
                   "Binds": [
                     "/dev/i2c-0:/dev/i2c-0",
-                    "/dev/i2c-1:/dev/i2c-1"
+                    "/dev/i2c-4:/dev/i2c-4"
                   ],
                   "Privileged": true
                 }
               }
             }
-          }
-        }
+          }        }
       }
     },
     "$edgeHub": {
@@ -91,9 +90,8 @@
     },
     "BMP280Module": {
       "properties.desired": {
-        "I2CBus": 0
+        "I2CBus": 4
       }
     }
-
   }
 }
